@@ -1,8 +1,9 @@
+import Observation
 import RecordInterfacable
 
-let a = 17
-let b = 25
+@available(iOS 17.0, *)
+@RecordInterfacable
+@Observable
+class Model{
 
-let (result, code) = #stringify(a + b)
-
-print("The value \(result) was produced by the code \"\(code)\"")
+}

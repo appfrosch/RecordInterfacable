@@ -57,5 +57,5 @@
 ///     )
 /// }
 /// ```
-@freestanding(expression)
-public macro stringify<T>(_ value: T) -> (T, String) = #externalMacro(module: "RecordInterfacableMacros", type: "StringifyMacro")
+@attached(memberAttribute)
+public macro RecordInterfacable() = #externalMacro(module: "RecordInterfacableMacros", type: "StringifyMacro")
