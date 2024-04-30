@@ -108,7 +108,7 @@ public struct RecordInterfacableMacro: MemberMacro {
     return [
       DeclSyntax(
         stringLiteral: """
-        struct \(symbolName)Record: Codable {
+        struct \(symbolName)Record: Codable, FetchableRecord, PersistableRecord {
           \(memberString)
         }
         """
@@ -126,7 +126,7 @@ public struct RecordInterfacableMacro: MemberMacro {
         \(symbolName)Record(id: self.id, title: self.title)
       }
       """
-      )
+      ),
     ]
   }
 }
