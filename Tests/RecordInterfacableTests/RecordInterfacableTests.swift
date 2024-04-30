@@ -9,7 +9,7 @@ import XCTest
 import RecordInterfacableMacros
 
 let testMacros: [String: Macro.Type] = [
-    "stringify": StringifyMacro.self,
+    "stringify": RecordInterfacableMacro.self,
 ]
 #endif
 
@@ -64,22 +64,6 @@ final class RecordInterfacableTests: XCTestCase {
                 )
             }
             """,
-            macros: testMacros
-        )
-        #else
-        throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
-    }
-
-    func testMacroWithStringLiteral() throws {
-        #if canImport(RecordInterfacableMacros)
-        assertMacroExpansion(
-            #"""
-            #stringify("Hello, \(name)")
-            """#,
-            expandedSource: #"""
-            ("Hello, \(name)", #""Hello, \(name)""#)
-            """#,
             macros: testMacros
         )
         #else
