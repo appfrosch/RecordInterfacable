@@ -9,7 +9,7 @@ import XCTest
 import RecordInterfacableMacros
 
 let testMacros: [String: Macro.Type] = [
-    "stringify": RecordInterfacableMacro.self,
+    "RecordInterfacable": RecordInterfacableMacro.self,
 ]
 #endif
 
