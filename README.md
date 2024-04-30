@@ -19,8 +19,8 @@ instead of the `class` itself that contains.
 
 ## Example
 ```swift
-@Observable
 @RecordInterfacable
+@Observable
 class Model {
   let id: UUID
   var title: String
