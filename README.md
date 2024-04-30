@@ -36,17 +36,17 @@ class Model {
     self.id = id
     self.title = title
   }
-///   struct ModelRecord: Codable {
+  struct ModelRecord: Codable {
     let id: UUID
     var title: String
   }
-///   init(from record: ModelRecord) {
+  init(from record: ModelRecord) {
     init(
       id: record.id,
       title: record.title
     )
   }
-///   func convertToRecord() -> ModelRecord {
+  func convertToRecord() -> ModelRecord {
     ModelRecord(
       id: self.id,
       title: self.title
