@@ -46,7 +46,7 @@ class Model {
     self.id = id
     self.title = title
   }
-  struct ModelRecord: Codable {
+  struct ModelRecord: Codable, FetchableRecord, PersistableRecord {
     let id: UUID
     var title: String
   }
