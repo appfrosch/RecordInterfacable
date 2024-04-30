@@ -46,6 +46,16 @@ final class RecordInterfacableTests: XCTestCase {
             }
 
               struct ModelRecord: Codable {
+                let id: UUID
+                var title: String
+              }
+
+              convenience init(from record: ModelRecord) {
+                self.init(id: record.id, title: record.title)
+              }
+
+              var record: ModelRecord {
+                ModelRecord(id: self.id, title: self.title)
               }
           }
           """,
