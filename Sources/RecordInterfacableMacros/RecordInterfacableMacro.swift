@@ -22,7 +22,15 @@ public struct RecordInterfacableMacro: MemberMacro {
     conformingTo protocols: [TypeSyntax],
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
+    guard let symbolName = declaration
+      .as(ClassDeclSyntax.self)?
+      .name
+      .text
+    else {
+      fatalError("There should be a binding.")
+    }
     return [
+      "struct \(raw: symbolName)Record: Codable {}"
     ]
   }
 }

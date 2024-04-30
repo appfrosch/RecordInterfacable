@@ -57,5 +57,5 @@
 ///     )
 /// }
 /// ```
-@attached(member)
+@attached(member, names: arbitrary)
 public macro RecordInterfacable() = #externalMacro(module: "RecordInterfacableMacros", type: "RecordInterfacableMacro")
