@@ -11,6 +11,18 @@ public struct RecordInterfacableMacro: MemberMacro {
     conformingTo protocols: [TypeSyntax],
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
+    let conformances = node
+      .arguments?
+      .as(LabeledExprListSyntax.self)?
+      .compactMap { $0
+        .expression
+        .as(ExprSyntax.self)?
+        .as(DeclReferenceExprSyntax.self)?
+        .baseName
+        .text
+      }
+    let conformanceString = conformances?.joined(separator: ", ")
+
     let classDecl = try assertClassDecl(for: declaration)
     let symbolName = try extractSymbolName(from: classDecl)
 
@@ -103,7 +115,7 @@ public struct RecordInterfacableMacro: MemberMacro {
     return [
       DeclSyntax(
         stringLiteral: """
-        struct \(symbolName)Record: Codable {
+        struct \(symbolName)Record: Codable\((conformanceString?.isEmpty ?? true) ? "" : ",\(conformanceString!)") {
           \(memberString)
         }
         """

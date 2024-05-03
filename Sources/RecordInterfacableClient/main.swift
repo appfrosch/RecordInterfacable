@@ -21,6 +21,9 @@ class Model {
   }
 }
 
+@RecordInterfacable(conformances: Hashable)
+class Model2 {}
+
 /// Comment the following code in to see the error message shown if the macro is applied to anything but a `class`.
 //@RecordInterfacable
 //struct Foo {}

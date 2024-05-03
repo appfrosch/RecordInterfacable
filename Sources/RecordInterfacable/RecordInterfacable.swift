@@ -10,8 +10,8 @@
 /// instead of the `class` itself that contains.
 ///
 /// ```swift
-/// @Observable
 /// @RecordInterfacable
+/// @Observable
 /// class Model {
 ///   let id: UUID
 ///   var title: String
@@ -58,4 +58,4 @@
 /// }
 /// ```
 @attached(member, names: arbitrary)
-public macro RecordInterfacable() = #externalMacro(module: "RecordInterfacableMacros", type: "RecordInterfacableMacro")
+public macro RecordInterfacable(conformances: Any.Type...) = #externalMacro(module: "RecordInterfacableMacros", type: "RecordInterfacableMacro")
