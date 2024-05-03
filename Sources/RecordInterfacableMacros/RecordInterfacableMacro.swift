@@ -11,13 +11,8 @@ public struct RecordInterfacableMacro: MemberMacro {
     conformingTo protocols: [TypeSyntax],
     in context: some MacroExpansionContext
   ) throws -> [DeclSyntax] {
-    guard let symbolName = declaration
-      .as(ClassDeclSyntax.self)?
-      .name
-      .text
-    else {
-      fatalError("Could not extract symbol name.")
-    }
+    let classDecl = try assertClassDecl(for: declaration)
+    let symbolName = try extractSymbolName(from: classDecl)
 
     /// Extracts all the elements of the body of the given class.
     /// This includes all properties and functions.
@@ -108,7 +103,7 @@ public struct RecordInterfacableMacro: MemberMacro {
     return [
       DeclSyntax(
         stringLiteral: """
-        struct \(symbolName)Record: Codable, FetchableRecord, PersistableRecord {
+        struct \(symbolName)Record: Codable {
           \(memberString)
         }
         """
@@ -131,9 +126,26 @@ public struct RecordInterfacableMacro: MemberMacro {
   }
 }
 
+extension RecordInterfacableMacro {
+  static func assertClassDecl(for declaration: some DeclGroupSyntax) throws -> ClassDeclSyntax {
+    guard let classDecl = declaration.as(ClassDeclSyntax.self)
+    else { throw RecordInterfacableMacroError.wrongSymbolType }
+    return classDecl
+  }
+
+  static func extractSymbolName(from classDecl: ClassDeclSyntax) throws -> String {
+    let symbolName = classDecl
+      .name
+      .text
+
+    return symbolName
+  }
+}
+
 @main
 struct RecordInterfacablePlugin: CompilerPlugin {
   let providingMacros: [Macro.Type] = [
     RecordInterfacableMacro.self,
   ]
 }
+

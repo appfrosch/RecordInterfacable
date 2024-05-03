@@ -14,7 +14,7 @@ let testMacros: [String: Macro.Type] = [
 #endif
 
 final class RecordInterfacableTests: XCTestCase {
-  func testMacroTemp() throws {
+  func testMacro() throws {
       #if canImport(RecordInterfacableMacros)
       assertMacroExpansion(
           """
